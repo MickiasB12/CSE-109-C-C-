@@ -1,17 +1,15 @@
-CC=gcc #compiler name
+CC = gcc
+CFLAGS = -g -c -Wall -Wextra -Wwrite-strings
+LFLAGS = -g -Wall -Wextra
 
-CFLAGS= -DDEBUG -g -c -Wall -Wextra -Wwrite-strings #assigning the variable for the compiling
+output: prog3.o prog3_funcs.o
+	${CC} ${LFLAGS} -o prog3 prog3.o prog3_funcs.o -lcurl
 
-LFLAGS=-g -Wall -Wextra#assigning variable for linking files
+prog3.o: prog3.c prog3_funcs.h ftp_file.h
+	${CC} ${CFLAGS} prog3.c
 
-output: prog1.o prog1_funcs.o #output is used for linking files
-	${CC} ${LFLAGS} -o prog1 prog1.o prog1_funcs.o  #produces an executable file named 							#prog0
-prog1.o: prog1.c #for creating a .o file for prog0.c
-	${CC} ${LFLAGS} -c prog1.c
-prog1_funcs.o: prog1_funcs.c prog1_funcs.h #creates a .o file for prog1_funcs.c
-	${CC} ${LFLAGS} -c prog1_funcs.c
-
-clean:  #for cleaning purposes
+prog3_funcs.o: prog3_funcs.c prog3_funcs.h ftp_file.h
+	${CC} ${CFLAGS} prog3_funcs.c
+clean: 
 	rm -f *.o
 	rm -f output
-
